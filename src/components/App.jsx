@@ -19,21 +19,28 @@ export default class App extends Component {
     return Math.round((good * 100) / (good + neutral + bad) || 0);
   };
 
-  addFeedback = event => {
+  addFeedback = optionKey => {
     this.setState(prevState => ({
-      [event.target.id]: prevState[event.target.id] + 1,
+      [optionKey]: prevState[optionKey] + 1,
     }));
   };
+
+  // addFeedback = event => {
+  //   this.setState(prevState => ({
+  //     [event.target.id]: prevState[event.target.id] + 1,
+  //   }));
+  // };
 
   render() {
     const { good, neutral, bad } = this.state;
     const total = this.countTotalFeedback(this.state);
     const positiveFeedback = this.countPositiveFeedbackPercentage(this.state);
+    const optionsKeys = Object.keys(this.state);
 
     return (
       <Section title="Please leave feedback">
         <FeedbackOptions
-          options={this.state}
+          options={optionsKeys}
           onLeaveFeedback={this.addFeedback}
         />
 
